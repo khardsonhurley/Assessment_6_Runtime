@@ -1,0 +1,234 @@
+********************************************************************************
+************************************ PART 1 ************************************
+********************************************************************************
+
+*****RUNTIME*****
+1.  for animal in box: 
+        if animal == "elephant":    
+            return True
+
+    For this example, I would argue that the runtime is O(n). I say this because
+    the worst case for the for loop would be that I would have to pick up every
+    animal cracker and check if it is an elephant. Checking if it is an elephant
+    (the if statement above) has an O(1) runtime. So this means we have: 
+                                O(n)*O(1) = O(n). 
+
+2.  O(1) < O(log n) < O(n) < O(n log n) < O(n^2) < O(2^n)
+
+*****STACKS AND QUEUES*****
+1. 
+    1. Stack would be better for loading and unloading pallets onto a flatbed 
+    truck because this is a case where Last In First Out is most efficient. For
+    this example you want to push pallets on top when you are loading the truck
+    and pop pallets off the top when you are unloading. 
+    2. Queue would be better for putting bottle caps on bottles of bear as they
+    roll down an assembly line because a First In Last Out would be most
+    efficient. As each bottle cap is placed this is the process of "dequeuing"
+    the bottle from the line. As the bottles are added to the end of the line, 
+    they are being enqueued. 
+    3. Stack would be better for solving the mathematical expression because it 
+    requires checking for balanced parenthesis. For the actual calculation 
+    however, I am not 100% sure but my thought is that you would need a second 
+    stack for the values. The reason I think it is a queue is not appropriate is
+    because there is an Order of Operations for calculating mathematical 
+    expressions, so you would not want a FILO algorithm (meaning you solve the 
+    problem from left to right). 
+
+    Here is my thinking on this problem: 
+
+                            2 + (7 * 4) - (3 / 2)
+
+    Stack A: values []         Stack B: operators []
+    STEP 1: Push 2 to Stack A. 
+    STEP 2: Push + to Stack B. 
+    STEP 3: Push ( to Stack B.
+    STEP 4: Push 7 to Stack A. 
+    STEP 5: Push * to Stack B.
+    STEP 6: Push 4 to Stack A. 
+    STEP 7: Since it is a closing parenthesis(')'), pop(Stack A), pop(Stack B), 
+    pop(Stack A) and calculate 7 * 4 and push the result (28) to stack A, 
+    pop(Stack B). At this point this is what the stacks contain: 
+
+    Stack A: [2, 28]        Stack B: [+]
+
+    STEP 8: Push - to Stack B. 
+    STEP 9: Push ( to Stack B. 
+    STEP 10: Push 3 to Stack A. 
+    STEP 11: Push / to Stack B.
+    STEP 12: Push 2 to Stack A. 
+    STEP 13: Since it is a closing parenthesis(')'), pop(Stack A), pop(Stack B),
+    pop(Stack A) and you have 2 / 3. Since / is the operation, would calculate 
+    the result (x) and do 1/x to eventually end up with 3/2 (1.5). Now push that
+    value to Stack A and pop(Stack B). At this point this is what the stacks 
+    contain: 
+
+    Stack A: [2, 28, 1.5]       Stack B: [+ -]
+
+    STEP 14: Pop(Stack A), Pop(Stack B), Pop(Stack A) and complete the operation
+    of 28 - 1.5 = 26.5. Push 26.5 to Stack A. At this point this is what the 
+    stacks contain: 
+
+    Stack A: [2, 26.5]       Stack B: [+]
+
+    STEP 15: Pop(Stack A), Pop(Stack B), Pop(Stack A) and complete the operation
+    of 2 + 26.5 = 28.5. Push 28.5 to Stack B. Check if Stack B is empty (and 
+    Stack A should only have one item in it), and when it is, show the final 
+    result. 
+
+    Stack A: [28.5]         Stack B: [].            
+
+    >>>Since Stack B is empty the result = 28.5
+
+2.   
+Situation 1: The freeway is a good example of a queue. Lets say you are trying 
+to describe the traffic from one onramp to the next exit. Most generally, the 
+first cars are are using the last cars out. 
+
+Situation 2: Reading a book is an example of a queue. The pages in the front of 
+the book are the first to be read. It doesn't make sense to read the book from 
+the back [Last in first out]. 
+
+3.  
+Situation 1: Some people read their emails starting from the top. This would be 
+an example where a stack would be an appropriate data structure to represent 
+this because it means that the last email in will be the first email out. 
+
+Situation 2: When doing your laundry if you take your dirty clothes bin to the 
+laundry mat, generally people unload from the top and start washing these first.
+This means that the last clothes into the dirty clothes basket are the first 
+clothes out into the washing machine. A stack would be appropriate in this 
+instance. 
+
+Situation 3: The way that pringles are packaged and then eaten. They first 
+pringle into the can will be the last pringle eaten. 
+
+*****LINKED LISTS*****
+
+1. The nodes are the boxes the arrows are pointing to. The data for each node is
+text within these boxes (ie. 'Apple', 'Berry', 'Cherry'). The arrow represents 
+the relationship between one node and the node that follows. In other words, the 
+end of the arrow connects to the node whos next attribute is equal to the node 
+the arrow is pointing to. 
+    
+    Here is an outline of how these things change when a linked list is created:
+
+    >>>ll = LinkedList()        #Instantiates an instance of the class Linked 
+                                #List. 
+    >>>ll.head
+    None
+    >>>ll.tail
+    None
+    >>>ll.append('Apple')       #The append method instantiates an instance of 
+                                the Node Class. 
+    >>>ll.head.data             #Because the head and tail are None before 
+    Apple                       instantiation, the head and tail of the linked 
+    >>>ll.tail.data             list is now the node with data of 'Apple.'
+    Apple                       
+    >>>ll.head.next             #This shows that the node with data 'Apple' is 
+    None                        #both the head and the tail (which is defined as 
+                                having a next attribute of None).
+    >>>ll.append('Berry')       #A new node is instantiated. At this point, the 
+                                #Apple node's next attribute is being set to the
+    >>>ll.head.next.data        #the Berry node.  
+    Berry
+    >>>ll.tail.data             #Also, the tail is has been set to Berry node. 
+    Berry
+    >>>ll.tail.next             #Which means that the next attribute on Berry is
+    None                        #None(definition of tail). 
+    >>>ll.append('Cherry')      #Now the next attribute of the Berry node is being
+                                #set to 'Cherry' node. Cherry node has a next 
+    >>>ll.tail.data             #attribute of None and is therefore now the tail. 
+    Cherry          
+    >>>ll.tail.next
+    None
+    >>>ll.print_list()          #Here is the printed link list.   
+    'Apple'
+    'Berry'
+    'Cherry'
+2. The unique value of a singly-linked list is that each node has a 'next' 
+attribute on it. A doubly-linked list has a 'next' attribute and a 'prev' 
+attribute. Lets say using the previous example that b=Node('Berry'). If this list
+were doubly-linked, then b.prev = Node('Apple') and b.next=Node('Cherry').
+
+3. It is easier to append to a linked list with the ll.tail attribute because
+in the code we can set the new node as the next value on the current tail. Then
+reset the tail attribute to the new_node. Below I continue the example from 
+problem 1 and illustrate what I mean: 
+    >>>ll.tail.data             #Recall the tail is Node('Cherry'). 
+    Cherry 
+    >>>ll.append('Durian')      #With this step the following is happening: 
+                                new_node = Node('Durian') # new node instantiated.
+                                The next attribute on Node('Cherry') is being set
+                                to new_node. Lastly, the tail of the linked list
+    >>>ll.tail.data             is being set to new_node. 
+    Durian
+    >>>ll.tail.next             #And new_node now points to None. 
+    None
+
+*****Trees*****
+1. Breadth First Search(BFS) Algorithm
+    1. List starts off as [food]
+    2. Burrito doesnt match so pop food and add the children: 
+            [Italian, Indian, Mexican]
+    3. Pop Italian, doesnt match so add the children: 
+            [Indian, Mexican, Lasagna, Pizza]
+    4. Pop Indian, doesnt match so add the children: 
+            [Mexican, Lasagna, Pizza, Tikka Masala, Saag]
+    5. Pop Mexican, doesnt match so add the children: 
+            [Lasagna, Pizza, Tikka Masala, Saag, Burrito, Tacos, Enchiladas]
+    6. Pop Lasagna, doesnt match so add children (NONE):
+            [Pizza, Tikka Masala, Saag, Burrito, Tacos, Enchiladas]
+    7. Pop Pizza, doesnt match so add children:
+            [Tikka Masala, Saag, Burrito, Tacos, Enchiladas, thin Crust, 
+            Chicago-style, New York-style, Sicilian]
+    8. Pop Tikka Masala, doesnt match so add children (NONE):
+            [Saag, Burrito, Tacos, Enchiladas, thin Crust, Chicago-style
+            New York-style, Sicilian]
+    9. Pop Saag, doesnt match so add children (NONE):
+            [Burrito, Tacos, Enchiladas, thin Crust, Chicago-style
+            New York-style, Sicilian]
+    10. Pop Burrito, does match--> DONE!
+
+2. Depth First Search(DFS) Algorithm
+    1. List starts off as [food]
+    2. Burrito doesnt match so pop food and add the children: 
+            [Italian, Indian, Mexican]
+    3. Pop Mexican, doesn't match so add the children: 
+            [Italian, Indian, Burrito, Tacos, Enchiladas]
+    4. Pop Enchiladas, doesn't match, has no children so down to:
+            [Italian, Indian, Burrito, Tacos]
+    5. Pop Tacos, doesn't match, has no children so down to:
+            [Italian, Indian, Burrito]
+    6. Pop Burrito, doesn't match, has no children so down to:
+            [Italian, Indian]
+    7. Pop Indian, doesn't match so add the children:
+            [Italian, Tikka Masala, Saag]
+    8. Pop Saag, doesn't has no children so down to:
+            [Italian, Tikka Masala]
+    9. Pop Tikka Masala, doesn't has no children so down to:
+            [Italian]
+    10. Pop Italian, doesn't match, so add the children:
+            [Lasagna, Pizza]
+    11. Pop Pizza, doesn't match, so add the children:
+            [Lasagna, thin Crust, Chicago-style, New York-style, Sicilian]
+    12. Pop Sicilian, doesn't has no children so down to:
+            [Lasagna, thin Crust, Chicago-style, New York-style]
+    13. Pop New York-style,doesn't has no children so down to: 
+            [Lasagna, thin Crust, Chicago-style]
+    14. Pop Chicago-Style, does match--> DONE!
+
+3. A binary tree sorts all the elements in a list and finds the item whose index
+is half-way through the sorted list mylist[mylist.length/2] and makes that the 
+element at the top of the list. All of the nodes have a left and a right child 
+only. The idea here is that the relationships between parents and child are 
+related to the alphabetical order of the words, whereas the tree in the previous
+example has specific relationships between parents and children based on the 
+typeof food. If I took all of the elements in the list and put them in a binary 
+treeyou would not be able to see the relationships as clearly. Binary trees are 
+better for alphabetal searches not searches by type. 
+
+
+
+
+
+
